@@ -24,11 +24,11 @@
 
     <dimen name="ui_120p">120dp</dimen>
 
-    <dimen name="ui_fontsize_large">20sp</dimen>
-    <dimen name="ui_fontsize_medium">18sp</dimen>
-    <dimen name="ui_fontsize_small">16sp</dimen>
-    <dimen name="ui_fontsize_xlarge">24sp</dimen>
-    <dimen name="ui_fontsize_xsmall">14sp</dimen>
-    <dimen name="ui_fontsize_xxlarge">32sp</dimen>
     <dimen name="ui_fontsize_xxsmall">12sp</dimen>
+    <dimen name="ui_fontsize_xsmall">14sp</dimen>
+    <dimen name="ui_fontsize_small">16sp</dimen>
+    <dimen name="ui_fontsize_medium">18sp</dimen>
+    <dimen name="ui_fontsize_large">20sp</dimen>
+    <dimen name="ui_fontsize_xlarge">24sp</dimen>
+    <dimen name="ui_fontsize_xxlarge">32sp</dimen>
 </resources>

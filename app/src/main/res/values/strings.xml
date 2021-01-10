@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">RedditApp</string>
 
+    <!-- Error messages -->
+    <string name="empty_items">There are no items to show \n pull down to load more posts</string>
+    <string name="network_error">¡Ups there was a problem \n pull down to load more post!</string>
+
     <!-- Menu Item -->
     <string name="menu_dismiss_all_posts">Dismiss All</string>
 
