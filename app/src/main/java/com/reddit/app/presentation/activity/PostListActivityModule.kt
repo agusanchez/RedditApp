@@ -1,10 +1,7 @@
 package com.reddit.app.presentation.activity
 
 import com.reddit.app.data.repository.RemotePostToLocalDbRepository
-import com.reddit.app.domain.usecase.DismissAllPostsUseCase
-import com.reddit.app.domain.usecase.DismissedPostUseCase
-import com.reddit.app.domain.usecase.GetPostsUseCase
-import com.reddit.app.domain.usecase.MarkPostAsReadUseCase
+import com.reddit.app.domain.usecase.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,4 +26,8 @@ class PostListActivityModule {
     @Provides
     fun dismissAllPostsProvider(redditRepository: RemotePostToLocalDbRepository) =
             DismissAllPostsUseCase(redditRepository)
+
+    @Provides
+    fun getPostByIdProvider(redditRepository: RemotePostToLocalDbRepository) =
+            GetPostByIdUseCase(redditRepository)
 }

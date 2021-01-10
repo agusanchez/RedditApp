@@ -7,4 +7,5 @@ interface RedditRepository {
     suspend fun dismissPost(id: String): List<Post>
     suspend fun markPostAsRead(id: String): List<Post>
     suspend fun dismissAllPosts(ids: List<Post>)
+    suspend fun getPostById(id: String): Post
 }

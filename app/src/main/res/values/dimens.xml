@@ -23,6 +23,7 @@
     <dimen name="ui_10m">80dp</dimen>
 
     <dimen name="ui_120p">120dp</dimen>
+    <dimen name="ui_240p">240dp</dimen>
 
     <dimen name="ui_fontsize_xxsmall">12sp</dimen>
     <dimen name="ui_fontsize_xsmall">14sp</dimen>

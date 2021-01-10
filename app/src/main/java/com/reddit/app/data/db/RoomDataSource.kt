@@ -35,6 +35,9 @@ class RoomDataSource(db: RedditDatabase) : LocalDataSource {
         withContext(Dispatchers.IO) { redditDao.dismissAllPosts(ids) }
     }
 
+    override suspend fun getPostById(id: String): Post =
+            withContext(Dispatchers.IO) { redditDao.getPostbyId(id).toDomainPost() }
+
     override suspend fun saveRedditData(data: RedditData) {
         withContext(Dispatchers.IO) { redditDao.insertRedditData(data.toRoomRedditData()) }
     }

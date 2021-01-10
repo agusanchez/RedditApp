@@ -12,4 +12,5 @@ interface LocalDataSource {
     suspend fun markPostAsRead(id: String)
     suspend fun dismissPost(id: String)
     suspend fun dismissAllPosts(ids: List<String>)
+    suspend fun getPostById(id: String): Post
 }

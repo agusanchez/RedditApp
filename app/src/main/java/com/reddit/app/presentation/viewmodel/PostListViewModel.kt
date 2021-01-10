@@ -30,6 +30,7 @@ class PostListViewModel @ViewModelInject constructor(
     private val _showNetworkError = MutableStateFlow(false)
     private val _showEmptyView = MutableStateFlow(false)
     private val _showPostListView = MutableStateFlow(true)
+    private val _postClicked = MutableLiveData<String>()
     val redditList: LiveData<List<Post>> = _redditList
     val spinner: StateFlow<Boolean> = _spinner
     val isRefreshing: LiveData<Boolean> = _isRefreshing
@@ -37,6 +38,7 @@ class PostListViewModel @ViewModelInject constructor(
     val showNetworkError: StateFlow<Boolean> = _showNetworkError
     val showEmptyView: StateFlow<Boolean> = _showEmptyView
     val showPostListView: StateFlow<Boolean> = _showPostListView
+    val postClicked: LiveData<String> = _postClicked
 
     init {
         viewModelScope.launch { _lastVisible.collect { getNextPosts() } }
@@ -73,6 +75,7 @@ class PostListViewModel @ViewModelInject constructor(
     fun postClicked(id: String) {
         viewModelScope.launch {
             _redditList.value = markPostAsReadUseCase.invoke(id)
+            _postClicked.value = id
         }
     }
 

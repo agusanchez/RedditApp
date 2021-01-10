@@ -31,4 +31,7 @@ interface RedditDao {
 
     @Query("UPDATE Post SET isDismissed = 1 WHERE id IN (:ids)")
     fun dismissAllPosts(ids: List<String>)
+
+    @Query("SELECT * FROM Post WHERE id = :id")
+    fun getPostbyId(id: String): Post
 }

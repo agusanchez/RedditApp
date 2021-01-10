@@ -38,6 +38,10 @@ class RemotePostToLocalDbRepository(
         localDataSource.dismissAllPosts(ids.map { it.id })
     }
 
+    override suspend fun getPostById(id: String): Post {
+        return localDataSource.getPostById(id)
+    }
+
     private suspend fun getRedditAfterData(): String = try {
         localDataSource.getRedditData().last().after
     } catch (e: Exception) { "" }
