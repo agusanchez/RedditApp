@@ -1,5 +1,7 @@
 package com.reddit.app.presentation.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -92,5 +94,9 @@ class PostListFragment: Fragment(), PostActionListener {
 
     override fun onPostClicked(id: String) {
         viewModel.postClicked(id)
+    }
+
+    override fun onThumbnailClicked(thumbnailUrl: String) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(thumbnailUrl)))
     }
 }

@@ -1,16 +1,15 @@
 package com.reddit.app.presentation.activity
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import com.reddit.app.R
-import com.reddit.app.presentation.activity.BasePostDetailActivity.Companion.POST_ID
 import com.reddit.app.presentation.viewmodel.PostListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PostListActivity: AppCompatActivity() {
+class PostListActivity: BasePostDetailActivity() {
 
     private val viewModel: PostListViewModel by viewModels()
 
@@ -19,7 +18,11 @@ class PostListActivity: AppCompatActivity() {
         setContentView(R.layout.activity_post_list)
 
         viewModel.postClicked.observe(this, { postId ->
-            showDetailPostFragment(postId)
+            if (isScreenOrientationPortrait()) {
+                showDetailPostFragment(postId)
+            } else {
+                showPostDetail(postId)
+            }
         })
     }
 
@@ -28,4 +31,7 @@ class PostListActivity: AppCompatActivity() {
         intent.putExtra(POST_ID, postId)
         startActivity(intent)
     }
+
+    private fun isScreenOrientationPortrait() =
+            resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
 }

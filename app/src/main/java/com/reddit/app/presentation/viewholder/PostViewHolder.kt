@@ -18,9 +18,11 @@ class PostViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(post: Post, postActionListener: PostActionListener) = with(binding) {
 
         itemPostDismiss.setOnClickListener { postActionListener.onDismissedPost(post.id) }
-
-        itemView.setOnClickListener {
-            postActionListener.onPostClicked(post.id)
+        itemView.setOnClickListener { postActionListener.onPostClicked(post.id) }
+        itemPostImage.setOnClickListener {
+            post.contentUrl?.let {
+                postActionListener.onThumbnailClicked(post.contentUrl)
+            }
         }
 
         Glide.with(itemPostImage.context)
@@ -38,8 +40,11 @@ class PostViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         postState(post.wasRead)
         itemPostDescription.text = post.title
         itemPostTitle.text = post.author
-        itemPostComments.text = post.comment.toString() + itemPostComments.resources.getString(R.string.item_post_comments)
         itemPostDate.text = DateTimeUtils.getTimeAgo(itemView.context, post.created ?: 0)
+        itemPostComments.text = itemView.run {
+            context.getString(R.string.item_post_comments_format,
+                    post.comment.toString(), context.resources.getString(R.string.item_post_comments))
+        }
     }
 
     private fun markUnread() = with(binding)  {

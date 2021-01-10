@@ -9,7 +9,8 @@
     <string name="menu_dismiss_all_posts">Dismiss All</string>
 
     <!-- Item post -->
-    <string name="item_post_comments"> comments</string>
+    <string name="item_post_comments_format">%s %s</string>
+    <string name="item_post_comments">comments</string>
     <string name="item_post_dismiss">Dismiss post</string>
 
     <!-- Date time -->
