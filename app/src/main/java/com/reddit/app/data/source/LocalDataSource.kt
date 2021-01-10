@@ -9,4 +9,7 @@ interface LocalDataSource {
     suspend fun saveRedditData(data: RedditData)
     suspend fun getRedditData(): List<RedditData>
     suspend fun getPosts(): List<Post>
+    suspend fun markPostAsRead(id: String)
+    suspend fun dismissPost(id: String)
+    suspend fun dismissAllPosts(ids: List<String>)
 }

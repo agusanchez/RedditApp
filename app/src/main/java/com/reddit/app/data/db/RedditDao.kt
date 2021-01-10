@@ -22,4 +22,13 @@ interface RedditDao {
 
     @Query("SELECT COUNT(id) FROM Post WHERE isDismissed = 0")
     suspend fun postsCount(): Int
+
+    @Query("UPDATE Post SET wasRead = 1 WHERE id = :id")
+    fun markPostAsRead(id: String)
+
+    @Query("UPDATE Post SET isDismissed = :isDismissed WHERE id = :id")
+    fun dismissPost(id: String, isDismissed: Boolean = true)
+
+    @Query("UPDATE Post SET isDismissed = 1 WHERE id IN (:ids)")
+    fun dismissAllPosts(ids: List<String>)
 }

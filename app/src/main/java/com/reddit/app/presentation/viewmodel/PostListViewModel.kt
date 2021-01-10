@@ -6,14 +6,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.reddit.app.domain.model.Post
+import com.reddit.app.domain.usecase.DismissAllPostsUseCase
+import com.reddit.app.domain.usecase.DismissedPostUseCase
 import com.reddit.app.domain.usecase.GetPostsUseCase
+import com.reddit.app.domain.usecase.MarkPostAsReadUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class PostListViewModel @ViewModelInject constructor(
-    private val getPostsUseCase: GetPostsUseCase): ViewModel() {
+        private val getPostsUseCase: GetPostsUseCase,
+        private val dismissPostUseCase: DismissedPostUseCase,
+        private val markPostAsReadUseCase: MarkPostAsReadUseCase,
+        private val dismissAllPostsUseCase: DismissAllPostsUseCase): ViewModel() {
 
     private val _redditList = MutableLiveData<List<Post>>()
     private val _spinner = MutableStateFlow(true)
@@ -40,5 +46,23 @@ class PostListViewModel @ViewModelInject constructor(
     private suspend fun getNextPosts() {
         _redditList.value = getPostsUseCase.invoke(_lastVisible.value)
         _spinner.value = false
+    }
+
+    fun dismissPost(id: String) {
+        viewModelScope.launch {
+            _redditList.value = dismissPostUseCase.invoke(id)
+        }
+    }
+
+    fun postClicked(id: String) {
+        viewModelScope.launch {
+            _redditList.value = markPostAsReadUseCase.invoke(id)
+        }
+    }
+
+    fun dismissAllPosts(postList: List<Post>) {
+        viewModelScope.launch {
+            dismissAllPostsUseCase.invoke(postList)
+        }
     }
 }

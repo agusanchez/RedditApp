@@ -23,6 +23,18 @@ class RoomDataSource(db: RedditDatabase) : LocalDataSource {
         redditDao.getAllPosts().map { it.toDomainPost() }
     }
 
+    override suspend fun markPostAsRead(id: String) {
+        withContext(Dispatchers.IO) { redditDao.markPostAsRead(id) }
+    }
+
+    override suspend fun dismissPost(id: String) {
+        withContext(Dispatchers.IO) { redditDao.dismissPost(id) }
+    }
+
+    override suspend fun dismissAllPosts(ids: List<String>) {
+        withContext(Dispatchers.IO) { redditDao.dismissAllPosts(ids) }
+    }
+
     override suspend fun saveRedditData(data: RedditData) {
         withContext(Dispatchers.IO) { redditDao.insertRedditData(data.toRoomRedditData()) }
     }

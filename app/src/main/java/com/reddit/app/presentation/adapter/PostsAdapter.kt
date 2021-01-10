@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.reddit.app.R
 import com.reddit.app.domain.model.Post
+import com.reddit.app.presentation.viewholder.PostActionListener
 import com.reddit.app.presentation.viewholder.PostViewHolder
 import com.reddit.app.utils.DiffCallback
 
-class PostsAdapter : ListAdapter<Post, PostViewHolder>(
+class PostsAdapter(val postActionListener: PostActionListener) : ListAdapter<Post, PostViewHolder>(
     DiffCallback()
 ) {
 
@@ -21,6 +22,6 @@ class PostsAdapter : ListAdapter<Post, PostViewHolder>(
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) = with(holder) {
         val item = getItem(position)
-        bind(item)
+        bind(item, postActionListener)
     }
 }

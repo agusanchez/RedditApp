@@ -1,16 +1,16 @@
 package com.reddit.app.presentation.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.reddit.app.R
 import com.reddit.app.databinding.FragmentPostListBinding
 import com.reddit.app.presentation.adapter.PostsAdapter
+import com.reddit.app.presentation.viewholder.PostActionListener
 import com.reddit.app.presentation.viewmodel.PostListViewModel
 import com.reddit.app.utils.DividerItemDecorator
 import com.reddit.app.utils.visible
@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class PostListFragment: Fragment() {
+class PostListFragment: Fragment(), PostActionListener {
 
     private val viewModel: PostListViewModel by activityViewModels()
     private lateinit var binding: FragmentPostListBinding
@@ -27,6 +27,7 @@ class PostListFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
+        setHasOptionsMenu(true)
         binding = FragmentPostListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -48,7 +49,6 @@ class PostListFragment: Fragment() {
         }
     }
 
-
     private fun setSwipeRefreshListener() {
         binding.mainSwipeLayout.setOnRefreshListener { viewModel.refreshForNewPosts() }
     }
@@ -56,7 +56,7 @@ class PostListFragment: Fragment() {
     private fun setRecyclerView() {
         linearLayoutManager = binding.mainRecyclerView.layoutManager as LinearLayoutManager
         binding.mainRecyclerView.addItemDecoration(DividerItemDecorator(requireContext()))
-        postAdapter = PostsAdapter()
+        postAdapter = PostsAdapter(postActionListener = this)
     }
 
     private fun setOnScrollListener() {
@@ -66,5 +66,25 @@ class PostListFragment: Fragment() {
                 viewModel.lastVisible.value = linearLayoutManager.findLastVisibleItemPosition()
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.dismiss_all_posts_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_dismiss_all) {
+            viewModel.dismissAllPosts(postAdapter.currentList)
+            postAdapter.submitList(emptyList())
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDismissedPost(id: String) {
+        viewModel.dismissPost(id)
+    }
+
+    override fun onPostClicked(id: String) {
+        viewModel.postClicked(id)
     }
 }

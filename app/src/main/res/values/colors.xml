@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="green_shape_circle">#008000</color>
+    <color name="red_shape_circle">#ff0000</color>
+    <color name="color_grey_disabled">#808080</color>
 </resources>

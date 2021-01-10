@@ -24,6 +24,20 @@ class RemotePostToLocalDbRepository(
         return localDataSource.getPosts()
     }
 
+    override suspend fun dismissPost(id: String): List<Post> {
+        localDataSource.dismissPost(id)
+        return localDataSource.getPosts()
+    }
+
+    override suspend fun markPostAsRead(id: String): List<Post> {
+        localDataSource.markPostAsRead(id)
+        return localDataSource.getPosts()
+    }
+
+    override suspend fun dismissAllPosts(ids: List<Post>) {
+        localDataSource.dismissAllPosts(ids.map { it.id })
+    }
+
     private suspend fun getRedditAfterData(): String = try {
         localDataSource.getRedditData().last().after
     } catch (e: Exception) { "" }
