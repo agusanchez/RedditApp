@@ -1,6 +1,7 @@
 package com.reddit.app
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class RedditApp: Application() {
-}
+@HiltAndroidApp
+class RedditApp: Application()

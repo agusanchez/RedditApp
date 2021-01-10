@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="@dimen/ui_1_25m"
+    android:paddingRight="@dimen/ui_075m"
+    android:paddingLeft="@dimen/ui_075m"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_post_header_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/ui_1_25m"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/itemPostIsRead"
+            android:layout_width="@dimen/ui_2_5m"
+            android:layout_height="@dimen/ui_2_5m"
+            android:background="@drawable/shape_circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/itemPostTitle"
+            android:textColor="@android:color/white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginLeft="@dimen/ui_1m"
+            app:layout_constraintLeft_toRightOf="@+id/itemPostIsRead"
+            app:layout_constraintRight_toLeftOf="@+id/itemPostDate"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginRight="@dimen/ui_1m"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Example title" />
+
+        <TextView
+            android:id="@+id/itemPostDate"
+            android:textColor="@android:color/white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="a day ago" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/itemPostImage"
+        android:layout_width="@dimen/ui_120p"
+        android:layout_height="@dimen/ui_120p"
+        android:layout_marginStart="@dimen/ui_1_25m"
+        android:layout_marginTop="@dimen/ui_1m"
+        android:scaleType="fitXY"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_post_header_container"
+        tools:background="@color/black" />
+
+    <TextView
+        android:id="@+id/itemPostDescription"
+        android:textColor="@android:color/white"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/ui_1m"
+        android:layout_marginTop="@dimen/ui_1m"
+        android:layout_marginRight="@dimen/ui_1m"
+        android:ellipsize="end"
+        app:layout_constraintLeft_toRightOf="@+id/itemPostImage"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_post_header_container"
+        tools:text="description" />
+
+    <TextView
+        android:id="@+id/itemPostDismiss"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/white"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/ui_1_25m"
+        android:layout_marginTop="@dimen/ui_1_25m"
+        app:drawableStartCompat="@drawable/ic_dismiss_post"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/itemPostComments"
+        app:layout_constraintTop_toBottomOf="@+id/itemPostImage"
+        android:text="@string/item_post_dismiss" />
+
+    <TextView
+        android:id="@+id/itemPostComments"
+        android:textColor="@android:color/white"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ui_1_25m"
+        android:layout_marginEnd="@dimen/ui_1_25m"
+        android:gravity="end"
+        app:layout_constraintLeft_toRightOf="@+id/itemPostDismiss"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemPostImage"
+        tools:text="100 comments" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
