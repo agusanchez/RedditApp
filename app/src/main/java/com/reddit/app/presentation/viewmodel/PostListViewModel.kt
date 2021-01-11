@@ -56,7 +56,7 @@ class PostListViewModel @ViewModelInject constructor(
         }
     }
 
-    private suspend fun getNextPosts() {
+    suspend fun getNextPosts() {
         try {
             _redditList.value = getPostsUseCase.invoke(_lastVisible.value)
             handleStatus(Status.SUCCESS)
