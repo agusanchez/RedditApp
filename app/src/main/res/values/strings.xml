@@ -13,6 +13,11 @@
     <string name="item_post_comments">comments</string>
     <string name="item_post_dismiss">Dismiss post</string>
 
+    <!-- Post Detail -->
+    <string name="post_detail_save_picture">Save picture</string>
+    <string name="post_detail_picture_successfully_saved">Picture successfully saved</string>
+    <string name="post_detail_picture_error_happened">Could not saved the picture. Please try again!</string>
+
     <!-- Date time -->
     <string name="post_moment_ago">moments ago</string>
     <string name="post_a_minute_ago">a minute ago</string>

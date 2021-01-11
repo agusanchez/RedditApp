@@ -1,6 +1,7 @@
 package com.reddit.app.presentation.activity
 
 import com.reddit.app.data.repository.RemotePostToLocalDbRepository
+import com.reddit.app.data.repository.SavePictureRepository
 import com.reddit.app.domain.usecase.*
 import dagger.Module
 import dagger.Provides
@@ -30,4 +31,8 @@ class PostListActivityModule {
     @Provides
     fun getPostByIdProvider(redditRepository: RemotePostToLocalDbRepository) =
             GetPostByIdUseCase(redditRepository)
+
+    @Provides
+    fun savePictureProvider(pictureRepository: SavePictureRepository) =
+            SavePictureUseCase(pictureRepository)
 }
