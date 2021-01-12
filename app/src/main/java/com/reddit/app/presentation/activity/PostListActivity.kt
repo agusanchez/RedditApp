@@ -27,7 +27,7 @@ class PostListActivity: BasePostDetailActivity() {
     }
 
     private fun showDetailPostFragment(postId: String) {
-        val intent = Intent(   this, PostDetailActivity::class.java)
+        val intent = Intent(this, PostDetailActivity::class.java)
         intent.putExtra(POST_ID, postId)
         startActivity(intent)
     }

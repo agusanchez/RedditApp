@@ -76,7 +76,7 @@ class PostDetailFragment : Fragment() {
         val message = if (status) {
             requireContext().resources.getString(R.string.post_detail_picture_successfully_saved)
         } else {
-            requireContext().resources.getString(R.string.post_detail_picture_successfully_saved)
+            requireContext().resources.getString(R.string.post_detail_picture_error_happened)
         }
         view?.let { Snackbar.make(it, message, Snackbar.LENGTH_SHORT).show() }
     }
