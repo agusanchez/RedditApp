@@ -29,8 +29,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <include layout="@layout/view_network_error_view"/>
+    <include
+        layout="@layout/view_network_error_view"/>
 
-    <include layout="@layout/view_empty_state_view"/>
+    <include
+        layout="@layout/view_empty_state_view"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

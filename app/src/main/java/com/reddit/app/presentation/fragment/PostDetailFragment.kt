@@ -56,8 +56,9 @@ class PostDetailFragment : Fragment() {
 
     private fun loadThumbnail(thumbnail: String?) {
         if (thumbnail.isNullOrEmpty() || !URLUtil.isValidUrl(thumbnail)) {
-            binding.image.visibility = View.GONE
+            binding.image.visible = false
         } else {
+            binding.image.visible = true
             Glide.with(requireContext())
                     .load(thumbnail)
                     .transforms(CenterCrop(),

@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.reddit.app.R
 import com.reddit.app.databinding.FragmentPostListBinding
+import com.reddit.app.databinding.ViewEmptyStateViewBinding
+import com.reddit.app.databinding.ViewNetworkErrorViewBinding
 import com.reddit.app.presentation.adapter.PostsAdapter
 import com.reddit.app.presentation.viewholder.PostActionListener
 import com.reddit.app.presentation.viewmodel.PostListViewModel
@@ -19,14 +21,14 @@ import com.reddit.app.utils.DividerItemDecorator
 import com.reddit.app.utils.collectFlow
 import com.reddit.app.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.view_empty_state_view.*
-import kotlinx.android.synthetic.main.view_network_error_view.*
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class PostListFragment: Fragment(), PostActionListener {
 
     private val viewModel: PostListViewModel by activityViewModels()
+    private lateinit var emptyStateViewBinding: ViewEmptyStateViewBinding
+    private lateinit var errorNetworkViewBinding: ViewNetworkErrorViewBinding
     private lateinit var binding: FragmentPostListBinding
     private lateinit var postAdapter: PostsAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -35,6 +37,8 @@ class PostListFragment: Fragment(), PostActionListener {
                               savedInstanceState: Bundle?): View {
         setHasOptionsMenu(true)
         binding = FragmentPostListBinding.inflate(inflater, container, false)
+        emptyStateViewBinding = ViewEmptyStateViewBinding.bind(binding.root)
+        errorNetworkViewBinding = ViewNetworkErrorViewBinding.bind(binding.root)
         return binding.root
     }
 
@@ -49,9 +53,15 @@ class PostListFragment: Fragment(), PostActionListener {
             lifecycleScope.launchWhenCreated { viewModel.spinner.collect { progress.visible = it } }
             viewModel.redditList.observe(requireActivity(), { postAdapter.submitList(it) })
             viewModel.isRefreshing.observe(requireActivity(), { mainSwipeLayout.isRefreshing = it })
-            viewModel.viewModelScope.collectFlow(viewModel.showEmptyView) { viewEmptyList.visible = it }
-            viewModel.viewModelScope.collectFlow(viewModel.showNetworkError) { viewNetworkError.visible = it }
             viewModel.viewModelScope.collectFlow(viewModel.showPostListView) { mainRecyclerView.visible = it }
+            viewModel.viewModelScope.collectFlow(viewModel.showEmptyView) {
+                emptyStateViewBinding.emptyImageList.visible = it
+                emptyStateViewBinding.textEmptyList.visible = it
+            }
+            viewModel.viewModelScope.collectFlow(viewModel.showNetworkError) {
+                errorNetworkViewBinding.imageNoConnection.visible = it
+                errorNetworkViewBinding.textNoConnection.visible = it
+            }
 
             mainRecyclerView.adapter = postAdapter
         }
